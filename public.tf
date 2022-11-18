@@ -14,7 +14,7 @@ data "aws_vpc" "main" {
 ### Public Subnet, Nat and Route Tables
 resource "aws_subnet" "public_subnet" {
   count             = var.az_count
-  cidr_block        = cidrsubnet(data.aws_vpc.main.cidr_block, var.newbits, count.index + var.netnum_offset)
+  cidr_block        = coalesce(var.cidr_block,cidrsubnet(data.aws_vpc.main.cidr_block, var.newbits, count.index + var.netnum_offset))
   availability_zone = data.aws_availability_zones.available.names[count.index]
   vpc_id            = var.vpc_id
   tags              = merge({ Name = "Public ${data.aws_availability_zones.available.names[count.index]}" }, var.tags)

@@ -9,7 +9,7 @@ variable "use_nat" {
 }
 
 variable "name" {
-  default = "trice"
+  default = "project"
 }
 
 variable "tags" {
